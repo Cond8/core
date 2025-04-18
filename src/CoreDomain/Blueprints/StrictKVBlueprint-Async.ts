@@ -1,4 +1,4 @@
-// src/lib/cond8/_core/CoreDomain/Blueprints/StrictKVBlueprint-Async.ts
+// src/CoreDomain/Blueprints/StrictKVBlueprint-Async.ts
 import { CoreBlueprint } from './CoreBlueprint.ts';
 
 export abstract class StrictKVBlueprintAsync<

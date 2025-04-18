@@ -1,4 +1,4 @@
-// src/lib/cond8/_core/Metadata/filter-meta-hooks.ts
+// src/Metadata/filter-meta-hooks.ts
 import { CoreRedprint } from '../CoreDomain/index.ts';
 import {
   ActorTestInput,

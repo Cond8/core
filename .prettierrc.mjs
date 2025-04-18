@@ -1,4 +1,4 @@
-// packages/_core/.prettierrc.mjs
+// .prettierrc.mjs
 
 /** @type {import("prettier").Config} */
 export default {

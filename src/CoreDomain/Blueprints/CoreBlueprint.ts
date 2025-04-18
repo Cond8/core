@@ -1,4 +1,4 @@
-// src/lib/cond8/_core/CoreDomain/Blueprints/CoreBlueprint.ts
+// src/CoreDomain/Blueprints/CoreBlueprint.ts
 
 export abstract class CoreBlueprint {
   abstract get readonly(): unknown;

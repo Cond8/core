@@ -1,4 +1,4 @@
-// src/lib/cond8/_core/Recorder/C8Error.ts
+// src/Recorder/C8Error.ts
 import { CoreRedprint } from '../CoreDomain/index.ts';
 import { LifecyclePayload } from '../Lifecycle/Vacuum.ts';
 import { RecorderEntry } from './create-recorder.ts';

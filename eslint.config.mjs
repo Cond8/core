@@ -1,4 +1,4 @@
-// packages/_core/eslint.config.mjs
+// eslint.config.mjs
 // @ts-check
 import eslint from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';

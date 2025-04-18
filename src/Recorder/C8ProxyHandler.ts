@@ -1,4 +1,4 @@
-// src/lib/cond8/_core/Recorder/C8ProxyHandler.ts
+// src/Recorder/C8ProxyHandler.ts
 import { CoreBlueprint } from '../CoreDomain/index.ts';
 import { RecorderEntry } from './create-recorder.ts';
 

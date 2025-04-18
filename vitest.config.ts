@@ -1,4 +1,4 @@
-// packages/_core/vitest.config.ts
+// vitest.config.ts
 import { resolve } from 'path';
 import { defineConfig } from 'vitest/config';
 

@@ -1,5 +1,5 @@
 {
-  "$path": "packages/_core/tsconfig.spec.json",
+  "$path": "tsconfig.spec.json",
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./tsconfig.json",
   "compilerOptions": {

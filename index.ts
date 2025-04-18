@@ -1,4 +1,4 @@
-// src/lib/cond8/_core/index.ts
+// index.ts
 export * from './src/CoreDomain/index.ts';
 export * from './src/CoreInfra/create-actor.ts';
 export * from './src/CoreInfra/create-director.ts';

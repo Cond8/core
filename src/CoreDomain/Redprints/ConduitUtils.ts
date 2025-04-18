@@ -1,4 +1,4 @@
-// src/lib/cond8/_core/CoreDomain/Redprints/ConduitUtils.ts
+// src/CoreDomain/Redprints/ConduitUtils.ts
 import {
   C8Error,
   CoreBlueprint,

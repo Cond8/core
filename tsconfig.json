@@ -1,5 +1,5 @@
 {
-  "$path": "packages/_core/tsconfig.json",
+  "$path": "tsconfig.json",
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
