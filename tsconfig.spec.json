@@ -12,17 +12,9 @@
     "baseUrl": ".",
     "tsBuildInfoFile": "./dist/tsconfig.test.tsbuildinfo",
     "paths": {
-      "src/*": [
-        "src/*"
-      ]
+      "src/*": ["src/*"]
     }
   },
-  "include": [
-    "test/**/*",
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["test/**/*", "src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

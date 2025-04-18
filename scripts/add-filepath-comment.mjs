@@ -1,30 +1,30 @@
 // scripts/add-filepath-comment.mjs
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "node:url";
+import fs from 'fs';
+import { fileURLToPath } from 'node:url';
+import path from 'path';
 
 // Resolve the root directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Define the root directory (adjust if needed)
-const ROOT_DIR = path.resolve(__dirname, "../");
-const GITIGNORE_PATH = path.resolve(__dirname, "../.gitignore");
+const ROOT_DIR = path.resolve(__dirname, '../');
+const GITIGNORE_PATH = path.resolve(__dirname, '../.gitignore');
 
 // Define file extensions and their comment formats
 const COMMENT_FORMATS = {
-  ".js": { start: "//", end: "", regex: /^\/\/\s*/ },
-  ".ts": { start: "//", end: "", regex: /^\/\/\s*/ },
-  ".tsx": { start: "//", end: "", regex: /^\/\/\s*/ },
-  ".jsx": { start: "//", end: "", regex: /^\/\/\s*/ },
-  ".vhx": { start: "//", end: "", regex: /^\/\/\s*/ },
-  ".mjs": { start: "//", end: "", regex: /^\/\/\s*/ },
-  ".cjs": { start: "//", end: "", regex: /^\/\/\s*/ },
-  ".html": { start: "<!--", end: "-->", regex: /^<!--\s*/ },
-  ".css": { start: "/*", end: " */", regex: /^\/\*\s*/ },
-  ".scss": { start: "/*", end: " */", regex: /^\/\*\s*/ },
-  ".yaml": { start: "#", end: "", regex: /^#\s*/ },
-  ".yml": { start: "#", end: "", regex: /^#\s*/ },
+  '.js': { start: '//', end: '', regex: /^\/\/\s*/ },
+  '.ts': { start: '//', end: '', regex: /^\/\/\s*/ },
+  '.tsx': { start: '//', end: '', regex: /^\/\/\s*/ },
+  '.jsx': { start: '//', end: '', regex: /^\/\/\s*/ },
+  '.vhx': { start: '//', end: '', regex: /^\/\/\s*/ },
+  '.mjs': { start: '//', end: '', regex: /^\/\/\s*/ },
+  '.cjs': { start: '//', end: '', regex: /^\/\/\s*/ },
+  '.html': { start: '<!--', end: '-->', regex: /^<!--\s*/ },
+  '.css': { start: '/*', end: ' */', regex: /^\/\*\s*/ },
+  '.scss': { start: '/*', end: ' */', regex: /^\/\*\s*/ },
+  '.yaml': { start: '#', end: '', regex: /^#\s*/ },
+  '.yml': { start: '#', end: '', regex: /^#\s*/ },
 };
 
 /**
@@ -36,11 +36,11 @@ function loadGitignore(gitignorePath) {
   const ignoreSet = new Set();
 
   if (fs.existsSync(gitignorePath)) {
-    const gitignoreContent = fs.readFileSync(gitignorePath, "utf8");
-    gitignoreContent.split("\n").forEach((line) => {
+    const gitignoreContent = fs.readFileSync(gitignorePath, 'utf8');
+    gitignoreContent.split('\n').forEach(line => {
       let trimmed = line.trim();
-      if (trimmed && !trimmed.startsWith("#")) {
-        if (trimmed.startsWith("/")) {
+      if (trimmed && !trimmed.startsWith('#')) {
+        if (trimmed.startsWith('/')) {
           trimmed = trimmed.slice(1);
         }
         ignoreSet.add(trimmed);
@@ -50,18 +50,18 @@ function loadGitignore(gitignorePath) {
 
   // Always ignore these directories explicitly
   const excludeDirs = [
-    ".git",
-    ".idea",
-    ".nx",
-    ".next",
-    ".vscode",
-    "dist",
-    "tmp",
-    "cache",
-    "chunks",
-    "node_modules",
+    '.git',
+    '.idea',
+    '.nx',
+    '.next',
+    '.vscode',
+    'dist',
+    'tmp',
+    'cache',
+    'chunks',
+    'node_modules',
   ];
-  excludeDirs.forEach((dir) => ignoreSet.add(dir));
+  excludeDirs.forEach(dir => ignoreSet.add(dir));
 
   return ignoreSet;
 }
@@ -73,25 +73,25 @@ function loadGitignore(gitignorePath) {
  * @returns {boolean} - True if the path matches an ignore pattern.
  */
 function isIgnored(relativePath, ignoreSet) {
-  const normalizedPath = relativePath.replace(/\\/g, "/"); // Normalize paths to use forward slashes
+  const normalizedPath = relativePath.replace(/\\/g, '/'); // Normalize paths to use forward slashes
 
   if (
-    normalizedPath.includes("turbo.json") ||
-    normalizedPath.includes("components.json")
+    normalizedPath.includes('turbo.json') ||
+    normalizedPath.includes('components.json')
   ) {
     return true;
   }
 
   // Explicitly ignore any directory that includes /node_modules/ or starts with node_modules/
   if (
-    normalizedPath.includes("/node_modules/") ||
-    normalizedPath.startsWith("node_modules/")
+    normalizedPath.includes('/node_modules/') ||
+    normalizedPath.startsWith('node_modules/')
   ) {
     return true;
   }
 
   for (const pattern of ignoreSet) {
-    const escapedPattern = pattern.replace(/\\/g, "/"); // Normalize ignore pattern
+    const escapedPattern = pattern.replace(/\\/g, '/'); // Normalize ignore pattern
 
     if (
       normalizedPath === escapedPattern ||
@@ -115,7 +115,7 @@ function isIgnored(relativePath, ignoreSet) {
 function getSupportedFiles(dir, fileList = [], ignoreSet) {
   const files = fs.readdirSync(dir);
 
-  files.forEach((file) => {
+  files.forEach(file => {
     const filePath = path.join(dir, file);
     const relativePath = path.relative(ROOT_DIR, filePath);
     const stats = fs.statSync(filePath);
@@ -128,7 +128,7 @@ function getSupportedFiles(dir, fileList = [], ignoreSet) {
       getSupportedFiles(filePath, fileList, ignoreSet);
     } else if (
       COMMENT_FORMATS[path.extname(file)] ||
-      path.extname(file) === ".json"
+      path.extname(file) === '.json'
     ) {
       fileList.push(filePath);
     }
@@ -139,7 +139,7 @@ function getSupportedFiles(dir, fileList = [], ignoreSet) {
 
 // Helper to remove comment markers from a comment line
 function cleanComment(commentLine, { start, end, regex }) {
-  let cleaned = commentLine.replace(regex, "");
+  let cleaned = commentLine.replace(regex, '');
   if (end && cleaned.endsWith(end)) {
     cleaned = cleaned.slice(0, -end.length);
   }
@@ -149,21 +149,21 @@ function cleanComment(commentLine, { start, end, regex }) {
 // Heuristic to decide if a cleaned string looks like a filepath.
 // Here we check that it includes a slash and a dot (for an extension)
 function looksLikeFilepath(str) {
-  return /[\/\\]/.test(str) && str.includes(".");
+  return /[\/\\]/.test(str) && str.includes('.');
 }
 
 function prependFilePathComment(filePath) {
-  const relativePath = path.relative(ROOT_DIR, filePath).replace(/\\/g, "/");
+  const relativePath = path.relative(ROOT_DIR, filePath).replace(/\\/g, '/');
   const ext = path.extname(filePath);
 
-  if (ext === ".json") {
+  if (ext === '.json') {
     try {
-      const fileData = fs.readFileSync(filePath, "utf-8");
+      const fileData = fs.readFileSync(filePath, 'utf-8');
       const jsonContent = JSON.parse(fileData);
       const keys = Object.keys(jsonContent);
 
       const alreadyHasPath =
-        keys[0] === "$path" && jsonContent["$path"] === relativePath;
+        keys[0] === '$path' && jsonContent['$path'] === relativePath;
 
       if (alreadyHasPath) {
         return; // Already correct and in order, skip
@@ -171,19 +171,19 @@ function prependFilePathComment(filePath) {
 
       // Otherwise, build new object with $path on top
       const newJson = { $path: relativePath };
-      keys.forEach((key) => {
-        if (key !== "$path") {
+      keys.forEach(key => {
+        if (key !== '$path') {
           newJson[key] = jsonContent[key];
         }
       });
 
       fs.writeFileSync(
         filePath,
-        JSON.stringify(newJson, null, 2) + "\n",
-        "utf-8",
+        JSON.stringify(newJson, null, 2) + '\n',
+        'utf-8',
       );
 
-      if (jsonContent["$path"] !== relativePath) {
+      if (jsonContent['$path'] !== relativePath) {
         console.log(`Updated JSON with "$path" in: ${relativePath}`);
       } else {
         console.log(
@@ -199,21 +199,21 @@ function prependFilePathComment(filePath) {
   const { start, end, regex } = COMMENT_FORMATS[ext] || {};
   if (!start) return; // Skip unsupported file types
 
-  const fileContent = fs.readFileSync(filePath, "utf-8");
-  const lines = fileContent.replace(/\r\n/g, "\n").split("\n");
+  const fileContent = fs.readFileSync(filePath, 'utf-8');
+  const lines = fileContent.replace(/\r\n/g, '\n').split('\n');
   const correctComment = `${start} ${relativePath} ${end}`.trim();
 
   // Determine the starting index for inserting the comment.
   // If the file starts with a shebang, preserve it by inserting after line 0.
   let insertionIndex = 0;
-  if (lines.length > 0 && lines[0].startsWith("#!")) {
+  if (lines.length > 0 && lines[0].startsWith('#!')) {
     insertionIndex = 1;
   }
 
   // Find the first non-empty line after the insertion index.
   let firstNonEmptyIndex = lines
     .slice(insertionIndex)
-    .findIndex((line) => line.trim() !== "");
+    .findIndex(line => line.trim() !== '');
   if (firstNonEmptyIndex !== -1) {
     firstNonEmptyIndex += insertionIndex; // Adjust index relative to original lines
 
@@ -222,7 +222,7 @@ function prependFilePathComment(filePath) {
       const directiveIndex = firstNonEmptyIndex;
       let nextNonEmpty = lines
         .slice(directiveIndex + 1)
-        .findIndex((line) => line.trim() !== "");
+        .findIndex(line => line.trim() !== '');
       if (nextNonEmpty !== -1) {
         firstNonEmptyIndex = nextNonEmpty + directiveIndex + 1;
       }
@@ -252,7 +252,7 @@ function prependFilePathComment(filePath) {
     }
   }
 
-  fs.writeFileSync(filePath, lines.join("\n"), "utf-8");
+  fs.writeFileSync(filePath, lines.join('\n'), 'utf-8');
 }
 
 /**
@@ -260,14 +260,14 @@ function prependFilePathComment(filePath) {
  */
 (function main() {
   console.log(
-    "Updating supported files with file path comments or metadata...",
+    'Updating supported files with file path comments or metadata...',
   );
   const ignoreSet = loadGitignore(GITIGNORE_PATH);
   const supportedFiles = getSupportedFiles(ROOT_DIR, [], ignoreSet);
 
-  supportedFiles.forEach((filePath) => {
+  supportedFiles.forEach(filePath => {
     prependFilePathComment(filePath);
   });
 
-  console.log("All supported files have been updated.");
+  console.log('All supported files have been updated.');
 })();

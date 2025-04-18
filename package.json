@@ -1,10 +1,18 @@
 {
-  "$path": "package.json",
   "name": "@cond8/core",
   "version": "1.0.0",
   "description": "Core utilities and functions for the cond8 ecosystem.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "keywords": [
+    "cond8",
+    "core",
+    "library"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cond8/core.git"
+  },
+  "license": "MIT",
+  "author": "",
   "type": "module",
   "exports": {
     ".": {
@@ -12,17 +20,8 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cond8/core.git"
-  },
-  "keywords": [
-    "cond8",
-    "core",
-    "library"
-  ],
-  "author": "",
-  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -b -v tsconfig.build.json",
     "check-types": "tsc --noEmit",
@@ -50,13 +49,14 @@
     "globals": "^16.0.0",
     "jsonc-eslint-parser": "^2.4.0",
     "prettier": "^3.5.3",
-    "prettier-plugin-packagejson": "^2.5.10",
     "prettier-plugin-organize-imports": "^4.1.0",
+    "prettier-plugin-packagejson": "^2.5.10",
     "tslib": "^2.8.1",
     "turbo": "^2.5.0",
     "typescript": "5.8.3",
     "typescript-eslint": "^8.30.1",
     "vitest": "^3.1.1"
   },
-  "packageManager": "pnpm@10.7.1+sha512.2d92c86b7928dc8284f53494fb4201f983da65f0fb4f0d40baafa5cf628fa31dae3e5968f12466f17df7e97310e30f343a648baea1b9b350685dafafffdf5808"
+  "packageManager": "pnpm@10.7.1+sha512.2d92c86b7928dc8284f53494fb4201f983da65f0fb4f0d40baafa5cf628fa31dae3e5968f12466f17df7e97310e30f343a648baea1b9b350685dafafffdf5808",
+  "$path": "package.json"
 }

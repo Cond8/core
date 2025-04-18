@@ -31,17 +31,8 @@
     "target": "ES2024",
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo"
   },
-  "include": [
-    "src",
-    "eslint.config.mjs",
-    "_core/package.json"
-  ],
-  "exclude": [
-    "test",
-    "dist",
-    "node_modules",
-    "src/**/*.spec.ts"
-  ],
+  "include": ["src", "eslint.config.mjs", "_core/package.json"],
+  "exclude": ["test", "dist", "node_modules", "src/**/*.spec.ts"],
   "references": [
     {
       "path": "./tsconfig.build.json"

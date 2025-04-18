@@ -26,7 +26,7 @@ export const conduitConfig = tseslint.config(
       '@typescript-eslint/no-unsafe-member-access': 'error',
       '@typescript-eslint/no-unsafe-return': 'error',
       '@typescript-eslint/no-unsafe-argument': 'error',
-    }
+    },
   },
   turbo.configs['flat/recommended'],
   {
