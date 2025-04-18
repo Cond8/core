@@ -1,13 +1,13 @@
 // src/CoreInfra/create-director.ts
-import { CoreBlueprint, CoreRedprint } from '../CoreDomain/index.ts';
-import { LifecyclePayload, Vacuum } from '../Lifecycle/Vacuum.ts';
-import { filterMetaHooksDirector } from '../Metadata/filter-meta-hooks.ts';
-import { MetaHook } from '../Metadata/hooks.ts';
-import { Recorder, RecorderEntry } from '../Recorder/create-recorder.ts';
-import { CouldPromise } from '../utils/fn-promise-like.ts';
-import { fnStringify } from '../utils/fn-stringify.ts';
-import { createActor, StagedActor } from './create-actor.ts';
-import { ActorScript, ActorScriptWithTest } from './create-role.ts';
+import { CoreBlueprint, CoreRedprint } from '../CoreDomain/index.js';
+import { LifecyclePayload, Vacuum } from '../Lifecycle/Vacuum.js';
+import { filterMetaHooksDirector } from '../Metadata/filter-meta-hooks.js';
+import { MetaHook } from '../Metadata/hooks.js';
+import { Recorder, RecorderEntry } from '../Recorder/create-recorder.js';
+import { CouldPromise } from '../utils/fn-promise-like.js';
+import { fnStringify } from '../utils/fn-stringify.js';
+import { createActor, StagedActor } from './create-actor.js';
+import { ActorScript, ActorScriptWithTest } from './create-role.js';
 
 export type C8RO<C8 extends CoreRedprint> = C8['utils']['readonly'];
 export type C8ROPlain<C8 extends CoreRedprint> =

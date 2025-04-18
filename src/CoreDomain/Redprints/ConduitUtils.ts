@@ -1,4 +1,5 @@
 // src/CoreDomain/Redprints/ConduitUtils.ts
+import { diff } from 'jest-diff';
 import {
   C8Error,
   CoreBlueprint,
@@ -7,8 +8,7 @@ import {
   LifecycleBlueprint,
   LifecyclePayload,
   RecorderEntry,
-} from '@/lib/cond8/_core';
-import { diff } from 'jest-diff';
+} from '../../index.js';
 
 export type ReadonlyState<C8 extends CoreRedprint> = {
   var: VarUtilsType<C8>;

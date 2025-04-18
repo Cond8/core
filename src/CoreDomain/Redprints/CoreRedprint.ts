@@ -1,8 +1,8 @@
 // src/CoreDomain/Redprints/CoreRedprint.ts
-import { CoreBlueprint } from '../Blueprints/CoreBlueprint.ts';
-import { StrictKVBlueprintSync } from '../Blueprints/StrictKVBlueprint-Sync.ts';
-import { StrictKVBlueprint } from '../Blueprints/StrictKVBlueprint.ts';
-import { ConduitUtils, VarUtilsType } from './ConduitUtils.ts';
+import { CoreBlueprint } from '../Blueprints/CoreBlueprint.js';
+import { StrictKVBlueprintSync } from '../Blueprints/StrictKVBlueprint-Sync.js';
+import { StrictKVBlueprint } from '../Blueprints/StrictKVBlueprint.js';
+import { ConduitUtils, VarUtilsType } from './ConduitUtils.js';
 
 export abstract class CoreRedprint<T extends object = object> {
   public readonly utils: ConduitUtils<this>;

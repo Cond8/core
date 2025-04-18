@@ -1,5 +1,5 @@
 // src/CoreDomain/Services/StrictObjectKVService.ts
-import { StrictKVBlueprintSync } from '../Blueprints/StrictKVBlueprint-Sync.ts';
+import { StrictKVBlueprintSync } from '../Blueprints/StrictKVBlueprint-Sync.js';
 
 export class StrictObjectKVService<
   K extends PropertyKey = PropertyKey,

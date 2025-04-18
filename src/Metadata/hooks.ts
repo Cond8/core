@@ -1,5 +1,5 @@
 // src/Metadata/hooks.ts
-import { CoreRedprint } from '../CoreDomain';
+import { CoreRedprint } from '../CoreDomain/index.js';
 
 export abstract class MetaHook {
   protected constructor(readonly kind: string) {}

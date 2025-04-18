@@ -1,5 +1,5 @@
 // src/CoreDomain/Blueprints/LifecycleBlueprint.ts
-import { CoreBlueprint } from './CoreBlueprint.ts';
+import { CoreBlueprint } from './CoreBlueprint.js';
 
 export enum LifecycleRuntime {
   Prod = 'prod',

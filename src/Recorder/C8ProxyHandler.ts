@@ -1,6 +1,6 @@
 // src/Recorder/C8ProxyHandler.ts
-import { CoreBlueprint } from '../CoreDomain/index.ts';
-import { RecorderEntry } from './create-recorder.ts';
+import { CoreBlueprint } from '../CoreDomain/index.js';
+import { RecorderEntry } from './create-recorder.js';
 
 export type MetadataEntry = [string, ...unknown[]];
 

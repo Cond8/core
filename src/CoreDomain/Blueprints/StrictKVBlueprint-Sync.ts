@@ -1,5 +1,5 @@
 // src/CoreDomain/Blueprints/StrictKVBlueprint-Sync.ts
-import { CoreBlueprint } from './CoreBlueprint.ts';
+import { CoreBlueprint } from './CoreBlueprint.js';
 
 export abstract class StrictKVBlueprintSync<
   K extends PropertyKey = PropertyKey,

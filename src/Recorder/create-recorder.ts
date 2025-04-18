@@ -1,11 +1,11 @@
 // src/Recorder/create-recorder.ts
-import { CoreBlueprint } from '../CoreDomain/index.ts';
-import { CouldPromise, isPromiseLike } from '../utils/fn-promise-like.ts';
+import { CoreBlueprint } from '../CoreDomain/index.js';
+import { CouldPromise, isPromiseLike } from '../utils/fn-promise-like.js';
 import {
   C8LayerObserver,
   C8ProxyHandlerFactory,
   createC8ProxyHandler,
-} from './C8ProxyHandler.ts';
+} from './C8ProxyHandler.js';
 
 export interface Recorder {
   (name: string, ...metadata: unknown[]): void;
