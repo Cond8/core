@@ -11,8 +11,13 @@ export type ActorScript<C8 extends CoreRedprint> = (
   recorder?: Recorder,
 ) => CouldPromise<C8>;
 
-export interface ActorScriptWithTest<C8 extends CoreRedprint> extends ActorScript<C8> {
-  test(recorder: Recorder, c8Mock: C8, directorPayload: LifecyclePayload<C8>): CouldPromise<C8>;
+export interface ActorScriptWithTest<C8 extends CoreRedprint>
+  extends ActorScript<C8> {
+  test(
+    recorder: Recorder,
+    c8Mock: C8,
+    directorPayload: LifecyclePayload<C8>,
+  ): CouldPromise<C8>;
 }
 
 export type NeedsMetadata<T extends CoreRedprint> = (
@@ -28,7 +33,9 @@ export type NeedsActorsScriptAndMetadata<T extends CoreRedprint> = (
   actorScript: ActorScript<T>,
 ) => NeedsMetadata<T>;
 
-export function createRole<T extends CoreRedprint>(actorScript: ActorScript<T>): NeedsMetadata<T>;
+export function createRole<T extends CoreRedprint>(
+  actorScript: ActorScript<T>,
+): NeedsMetadata<T>;
 
 export function createRole<T extends CoreRedprint>(
   actorName: string,
@@ -61,7 +68,13 @@ export function createRole<T extends CoreRedprint>(
         throw new Error('Expected actorScript to be a function.');
       }
       return (actorName: string, ...metadataRest: unknown[]) => {
-        return createActor(actorName, actorScript, firstArg, ...restArgs, ...metadataRest);
+        return createActor(
+          actorName,
+          actorScript,
+          firstArg,
+          ...restArgs,
+          ...metadataRest,
+        );
       };
     };
   }

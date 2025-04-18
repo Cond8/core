@@ -32,10 +32,12 @@ export class DirectorTestOutput<Out> extends MetaHook {
 export const CoreMetaHooks = {
   Actor: {
     TestInput: <T extends CoreRedprint>(input: T) => new ActorTestInput(input),
-    TestOutput: <T extends CoreRedprint>(output: (c8: T) => void) => new ActorTestOutput(output),
+    TestOutput: <T extends CoreRedprint>(output: (c8: T) => void) =>
+      new ActorTestOutput(output),
   },
   Director: {
-    TestInput: <T extends Record<string, unknown>>(input: T) => new DirectorTestInput(input),
+    TestInput: <T extends Record<string, unknown>>(input: T) =>
+      new DirectorTestInput(input),
     TestOutput: <T>(output: (val: T) => void) => new DirectorTestOutput(output),
   },
 };

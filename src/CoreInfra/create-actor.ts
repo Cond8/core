@@ -8,7 +8,11 @@ import { fnStringify } from '../utils/fn-stringify.ts';
 import { ActorScript, ActorScriptWithTest } from './create-role.ts';
 
 export type StagedActor<C8 extends CoreRedprint> = {
-  (c8: C8, recorder: Recorder | undefined, directorPayload: LifecyclePayload<C8>): CouldPromise<C8>;
+  (
+    c8: C8,
+    recorder: Recorder | undefined,
+    directorPayload: LifecyclePayload<C8>,
+  ): CouldPromise<C8>;
   test?: (
     recorder: Recorder,
     c8Mock: C8 | undefined,
@@ -46,13 +50,20 @@ export const createActor = <C8 extends CoreRedprint>(
     try {
       const outputC8 = await actorScript(inputC8, recorder);
 
-      void outputC8.utils.handleEvent('onActorExit', vacuum.add({ c8: outputC8 }));
+      void outputC8.utils.handleEvent(
+        'onActorExit',
+        vacuum.add({ c8: outputC8 }),
+      );
 
       return outputC8;
     } catch (error) {
-      const normalizedError = error instanceof Error ? error : new Error(JSON.stringify(error));
+      const normalizedError =
+        error instanceof Error ? error : new Error(JSON.stringify(error));
       recorder?.('ACTOR ERROR', normalizedError);
-      void inputC8.utils.handleEvent('onActorError', vacuum.add({ error: normalizedError }));
+      void inputC8.utils.handleEvent(
+        'onActorError',
+        vacuum.add({ error: normalizedError }),
+      );
 
       throw inputC8.utils.close(
         vacuum.payload,
@@ -77,12 +88,21 @@ export const createActor = <C8 extends CoreRedprint>(
       assertFn(c8);
       void c8.utils.handleEvent('onActorAssertSuccess', vacuum.payload);
     } catch (error) {
-      const normalizedError = error instanceof Error ? error : new Error(JSON.stringify(error));
+      const normalizedError =
+        error instanceof Error ? error : new Error(JSON.stringify(error));
       recorder?.('ACTOR ASSERT ERROR', normalizedError);
-      void c8.utils.handleEvent('onActorAssertFail', vacuum.add({ error: normalizedError }));
+      void c8.utils.handleEvent(
+        'onActorAssertFail',
+        vacuum.add({ error: normalizedError }),
+      );
 
       if (isTest) {
-        throw c8.utils.close(vacuum.payload, directorPayload, normalizedError, recorder?.recording);
+        throw c8.utils.close(
+          vacuum.payload,
+          directorPayload,
+          normalizedError,
+          recorder?.recording,
+        );
       }
     }
   };

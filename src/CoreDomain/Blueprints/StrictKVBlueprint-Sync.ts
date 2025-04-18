@@ -10,12 +10,19 @@ export abstract class StrictKVBlueprintSync<
   abstract set(key: K, value: V): void;
   abstract remove(key: K): void;
 
-  get(key: K, error: Error = new Error(`Key ${String(key)} does not exist`)): V {
+  get(
+    key: K,
+    error: Error = new Error(`Key ${String(key)} does not exist`),
+  ): V {
     if (!this.has(key)) throw error;
     return this.optional(key) as V;
   }
 
-  add(key: K, value: V, error: Error = new Error(`Key ${String(key)} already exists`)): void {
+  add(
+    key: K,
+    value: V,
+    error: Error = new Error(`Key ${String(key)} already exists`),
+  ): void {
     if (this.has(key)) throw error;
     this.set(key, value);
   }
@@ -23,7 +30,9 @@ export abstract class StrictKVBlueprintSync<
   override(
     key: K,
     value: V,
-    error: Error = new Error(`Cannot override key ${String(key)} because it does not exist`),
+    error: Error = new Error(
+      `Cannot override key ${String(key)} because it does not exist`,
+    ),
   ): void {
     if (!this.has(key)) throw error;
     this.set(key, value);
@@ -31,7 +40,9 @@ export abstract class StrictKVBlueprintSync<
 
   delete(
     key: K,
-    error: Error = new Error(`Cannot delete key ${String(key)} because it does not exist`),
+    error: Error = new Error(
+      `Cannot delete key ${String(key)} because it does not exist`,
+    ),
   ): void {
     if (!this.has(key)) throw error;
     this.remove(key);

@@ -10,6 +10,7 @@
     "resolveJsonModule": true,
     "rootDir": ".",
     "baseUrl": ".",
+    "tsBuildInfoFile": "./dist/tsconfig.test.tsbuildinfo",
     "paths": {
       "src/*": [
         "src/*"

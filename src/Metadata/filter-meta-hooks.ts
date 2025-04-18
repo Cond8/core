@@ -1,12 +1,12 @@
 // src/Metadata/filter-meta-hooks.ts
-import { CoreRedprint } from '../CoreDomain/index.ts';
+import { CoreRedprint } from '../CoreDomain/index.js';
 import {
   ActorTestInput,
   ActorTestOutput,
   DirectorTestInput,
   DirectorTestOutput,
   MetaHook,
-} from './hooks.ts';
+} from './hooks.js';
 
 export const filterMetaHooksActor = <C8 extends CoreRedprint>(
   ...metadataRest: unknown[]
@@ -67,8 +67,8 @@ export const filterMetaHooksDirector = <
   return { hooks, inputMock, assertFn: outputAssertFn };
 };
 
-function isDirectorTestInput<In extends Record<string, unknown> = Record<string, unknown>>(
-  hook: MetaHook,
-): hook is DirectorTestInput<In> {
+function isDirectorTestInput<
+  In extends Record<string, unknown> = Record<string, unknown>,
+>(hook: MetaHook): hook is DirectorTestInput<In> {
   return hook.kind === 'DirectorTestInput';
 }

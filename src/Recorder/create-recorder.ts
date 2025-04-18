@@ -1,7 +1,11 @@
 // src/Recorder/create-recorder.ts
 import { CoreBlueprint } from '../CoreDomain/index.ts';
 import { CouldPromise, isPromiseLike } from '../utils/fn-promise-like.ts';
-import { C8LayerObserver, C8ProxyHandlerFactory, createC8ProxyHandler } from './C8ProxyHandler.ts';
+import {
+  C8LayerObserver,
+  C8ProxyHandlerFactory,
+  createC8ProxyHandler,
+} from './C8ProxyHandler.ts';
 
 export interface Recorder {
   (name: string, ...metadata: unknown[]): void;
@@ -15,7 +19,10 @@ export type RecorderEntry<T = unknown[]> = {
   metadata: T;
 };
 
-export type ProxyHandlerFactoryMap = Record<string, C8ProxyHandlerFactory<CoreBlueprint>>;
+export type ProxyHandlerFactoryMap = Record<
+  string,
+  C8ProxyHandlerFactory<CoreBlueprint>
+>;
 
 export interface ObserverEntry {
   layerType: keyof ProxyHandlerFactoryMap;
@@ -29,7 +36,10 @@ interface CreateRecorderParams {
   onError?: (recording: RecorderEntry[], error: Error) => CouldPromise<void>;
 }
 
-export const createRecorder = ({ observers, onError }: CreateRecorderParams = {}): Recorder => {
+export const createRecorder = ({
+  observers,
+  onError,
+}: CreateRecorderParams = {}): Recorder => {
   const startTime = Date.now();
   const recording: RecorderEntry[] = [];
 

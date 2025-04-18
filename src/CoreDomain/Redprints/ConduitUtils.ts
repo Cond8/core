@@ -96,30 +96,38 @@ export class ConduitUtils<C8 extends CoreRedprint> {
             break;
 
           case 'onDirectorEnter':
-            if (layer.onDirectorEnter) await layer.onDirectorEnter(payloadCopy, recorder);
+            if (layer.onDirectorEnter)
+              await layer.onDirectorEnter(payloadCopy, recorder);
             break;
           case 'onDirectorExit':
-            if (layer.onDirectorExit) await layer.onDirectorExit(payloadCopy, recorder);
+            if (layer.onDirectorExit)
+              await layer.onDirectorExit(payloadCopy, recorder);
             break;
 
           case 'onActorEnter':
-            if (layer.onActorEnter) await layer.onActorEnter(payloadCopy, recorder);
+            if (layer.onActorEnter)
+              await layer.onActorEnter(payloadCopy, recorder);
             break;
           case 'onActorExit':
-            if (layer.onActorExit) await layer.onActorExit(payloadCopy, recorder);
+            if (layer.onActorExit)
+              await layer.onActorExit(payloadCopy, recorder);
             break;
           case 'onActorError':
-            if (layer.onActorError) await layer.onActorError(payloadCopy, recorder);
+            if (layer.onActorError)
+              await layer.onActorError(payloadCopy, recorder);
             break;
 
           case 'onActorAssertStart':
-            if (layer.onActorAssertStart) await layer.onActorAssertStart(payloadCopy, recorder);
+            if (layer.onActorAssertStart)
+              await layer.onActorAssertStart(payloadCopy, recorder);
             break;
           case 'onActorAssertSuccess':
-            if (layer.onActorAssertSuccess) await layer.onActorAssertSuccess(payloadCopy, recorder);
+            if (layer.onActorAssertSuccess)
+              await layer.onActorAssertSuccess(payloadCopy, recorder);
             break;
           case 'onActorAssertFail':
-            if (layer.onActorAssertFail) await layer.onActorAssertFail(payloadCopy, recorder);
+            if (layer.onActorAssertFail)
+              await layer.onActorAssertFail(payloadCopy, recorder);
             break;
 
           case 'onDirectorAssertStart':
@@ -131,7 +139,8 @@ export class ConduitUtils<C8 extends CoreRedprint> {
               await layer.onDirectorAssertSuccess(payloadCopy, recorder);
             break;
           case 'onDirectorAssertFail':
-            if (layer.onDirectorAssertFail) await layer.onDirectorAssertFail(payloadCopy, recorder);
+            if (layer.onDirectorAssertFail)
+              await layer.onDirectorAssertFail(payloadCopy, recorder);
             break;
 
           default:
@@ -152,7 +161,9 @@ export class ConduitUtils<C8 extends CoreRedprint> {
     }
   }
 
-  private *_allLifecycleBlueprintLayers(): Generator<[string, FullLifecycleBlueprint<C8>]> {
+  private *_allLifecycleBlueprintLayers(): Generator<
+    [string, FullLifecycleBlueprint<C8>]
+  > {
     for (const [key, layer] of this._allBlueprintLayers()) {
       if (layer instanceof LifecycleBlueprint && layer.isActive) {
         yield [key, layer as unknown as FullLifecycleBlueprint<C8>];
@@ -184,7 +195,9 @@ export class ConduitUtils<C8 extends CoreRedprint> {
         }
         // set something
         if (!check(value)) {
-          throw new Error(`Cannot set ${String(key)}: expected ${typeName}, got ${typeof value}`);
+          throw new Error(
+            `Cannot set ${String(key)}: expected ${typeName}, got ${typeof value}`,
+          );
         }
         this.c8.locals.set(key, value);
         return value;
@@ -192,9 +205,18 @@ export class ConduitUtils<C8 extends CoreRedprint> {
 
     return Object.assign(defaultVar, {
       has: (key: PropertyKey) => this.c8.locals.has(key),
-      string: checkedVar<string>((x): x is string => typeof x === 'string', 'string'),
-      number: checkedVar<number>((x): x is number => typeof x === 'number', 'number'),
-      boolean: checkedVar<boolean>((x): x is boolean => typeof x === 'boolean', 'boolean'),
+      string: checkedVar<string>(
+        (x): x is string => typeof x === 'string',
+        'string',
+      ),
+      number: checkedVar<number>(
+        (x): x is number => typeof x === 'number',
+        'number',
+      ),
+      boolean: checkedVar<boolean>(
+        (x): x is boolean => typeof x === 'boolean',
+        'boolean',
+      ),
       functional: checkedVar<(...args: unknown[]) => unknown>(
         (x): x is (...args: unknown[]) => unknown => typeof x === 'function',
         'function',

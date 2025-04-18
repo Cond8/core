@@ -8,7 +8,9 @@ export type MethodNames<T> = {
   [K in keyof T]: T[K] extends (...args: unknown[]) => unknown ? K : never;
 }[keyof T];
 
-export type MethodFunction<T, K extends keyof T> = T[K] extends (...args: unknown[]) => unknown
+export type MethodFunction<T, K extends keyof T> = T[K] extends (
+  ...args: unknown[]
+) => unknown
   ? T[K]
   : never;
 
@@ -38,7 +40,9 @@ export const createC8ProxyHandler = <T extends CoreBlueprint>(
     }
 
     return (...args: Parameters<MethodFunction<T, MethodNames<T>>>) => {
-      const result = original.apply(target, args) as ReturnType<MethodFunction<T, keyof T>>;
+      const result = original.apply(target, args) as ReturnType<
+        MethodFunction<T, keyof T>
+      >;
 
       try {
         const hook = observer[prop as keyof C8LayerObserver<T>];
