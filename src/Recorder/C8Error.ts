@@ -1,9 +1,9 @@
 // src/Recorder/C8Error.ts
-import { CoreRedprint } from '../CoreDomain/index.js';
+import { CoreConduit } from '../CoreDomain/index.js';
 import { LifecyclePayload } from '../Lifecycle/Vacuum.js';
 import { RecorderEntry } from './create-recorder.js';
 
-export class C8Error<C8 extends CoreRedprint> extends Error {
+export class C8Error<C8 extends CoreConduit> extends Error {
   constructor(
     error: Error,
     public payload: LifecyclePayload<C8>,

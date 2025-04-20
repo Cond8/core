@@ -1,101 +1,85 @@
 // src/Lifecycle/LifecycleEventHooks.ts
-import { CoreRedprint } from '../CoreDomain/index.js';
+import { CoreConduit } from '../CoreDomain/index.js';
 import { Recorder } from '../Recorder/create-recorder.js';
 import { CouldPromise } from '../utils/fn-promise-like.js';
 import { LifecyclePayload } from './Vacuum.js';
 
 export abstract class FullLifecycleBlueprint<
-    C8 extends CoreRedprint = CoreRedprint,
-  >
-  implements
-    OnEnterHook<C8>,
-    OnExitHook<C8>,
-    OnDirectorEnterHook<C8>,
-    OnDirectorExitHook<C8>,
-    OnActorEnterHook<C8>,
-    OnActorExitHook<C8>,
-    OnActorErrorHook<C8>,
-    OnActorErrorHook<C8>,
-    OnActorAssertStartHook<C8>,
-    OnActorAssertSuccessHook<C8>,
-    OnActorAssertFailHook<C8>,
-    OnDirectorAssertStartHook<C8>,
-    OnDirectorAssertSuccessHook<C8>,
-    OnDirectorAssertFailHook<C8>
-{
-  onActorAssertFail(
+  C8 extends CoreConduit = CoreConduit,
+> {
+  onActorAssertFail?(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void> {
     recorder?.('onActorAssertFail', payload);
   }
-  onActorAssertStart(
+  onActorAssertStart?(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void> {
     recorder?.('onActorAssertStart', payload);
   }
-  onActorAssertSuccess(
+  onActorAssertSuccess?(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void> {
     recorder?.('onActorAssertSuccess', payload);
   }
-  onActorEnter(
+  onActorEnter?(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void> {
     recorder?.('onActorEnter', payload);
   }
-  onActorError(
+  onActorError?(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void> {
     recorder?.('onActorError', payload);
   }
-  onActorExit(
+  onActorExit?(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void> {
     recorder?.('onActorExit', payload);
   }
-  onDirectorAssertFail(
+  onDirectorAssertFail?(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void> {
     recorder?.('onDirectorAssertFail', payload);
   }
-  onDirectorAssertStart(
+  onDirectorAssertStart?(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void> {
     recorder?.('onDirectorAssertStart', payload);
   }
-  onDirectorAssertSuccess(
+  onDirectorAssertSuccess?(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void> {
     recorder?.('onDirectorAssertSuccess', payload);
   }
-  onDirectorEnter(
+  onDirectorEnter?(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void> {
     recorder?.('onDirectorEnter', payload);
   }
-  onDirectorExit(
+  onDirectorExit?(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void> {
     recorder?.('onDirectorExit', payload);
   }
-  onEnter(
+  onEnter?(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void> {
     recorder?.('onEnter', payload);
   }
-  onExit(
+  onExit?(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void> {
@@ -103,58 +87,56 @@ export abstract class FullLifecycleBlueprint<
   }
 }
 
-export interface OnEnterHook<C8 extends CoreRedprint = CoreRedprint> {
+export interface OnEnterHook<C8 extends CoreConduit = CoreConduit> {
   onEnter(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void>;
 }
 
-export interface OnExitHook<C8 extends CoreRedprint = CoreRedprint> {
+export interface OnExitHook<C8 extends CoreConduit = CoreConduit> {
   onExit(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void>;
 }
 
-export interface OnDirectorEnterHook<C8 extends CoreRedprint = CoreRedprint> {
+export interface OnDirectorEnterHook<C8 extends CoreConduit = CoreConduit> {
   onDirectorEnter(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void>;
 }
 
-export interface OnDirectorExitHook<C8 extends CoreRedprint = CoreRedprint> {
+export interface OnDirectorExitHook<C8 extends CoreConduit = CoreConduit> {
   onDirectorExit(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void>;
 }
 
-export interface OnActorEnterHook<C8 extends CoreRedprint = CoreRedprint> {
+export interface OnActorEnterHook<C8 extends CoreConduit = CoreConduit> {
   onActorEnter(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void>;
 }
 
-export interface OnActorExitHook<C8 extends CoreRedprint = CoreRedprint> {
+export interface OnActorExitHook<C8 extends CoreConduit = CoreConduit> {
   onActorExit(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void>;
 }
 
-export interface OnActorErrorHook<C8 extends CoreRedprint = CoreRedprint> {
+export interface OnActorErrorHook<C8 extends CoreConduit = CoreConduit> {
   onActorError(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
   ): CouldPromise<void>;
 }
 
-export interface OnActorAssertStartHook<
-  C8 extends CoreRedprint = CoreRedprint,
-> {
+export interface OnActorAssertStartHook<C8 extends CoreConduit = CoreConduit> {
   onActorAssertStart(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
@@ -162,7 +144,7 @@ export interface OnActorAssertStartHook<
 }
 
 export interface OnActorAssertSuccessHook<
-  C8 extends CoreRedprint = CoreRedprint,
+  C8 extends CoreConduit = CoreConduit,
 > {
   onActorAssertSuccess(
     payload: LifecyclePayload<C8>,
@@ -170,7 +152,7 @@ export interface OnActorAssertSuccessHook<
   ): CouldPromise<void>;
 }
 
-export interface OnActorAssertFailHook<C8 extends CoreRedprint = CoreRedprint> {
+export interface OnActorAssertFailHook<C8 extends CoreConduit = CoreConduit> {
   onActorAssertFail(
     payload: LifecyclePayload<C8>,
     recorder?: Recorder,
@@ -178,7 +160,7 @@ export interface OnActorAssertFailHook<C8 extends CoreRedprint = CoreRedprint> {
 }
 
 export interface OnDirectorAssertStartHook<
-  C8 extends CoreRedprint = CoreRedprint,
+  C8 extends CoreConduit = CoreConduit,
 > {
   onDirectorAssertStart(
     payload: LifecyclePayload<C8>,
@@ -187,7 +169,7 @@ export interface OnDirectorAssertStartHook<
 }
 
 export interface OnDirectorAssertSuccessHook<
-  C8 extends CoreRedprint = CoreRedprint,
+  C8 extends CoreConduit = CoreConduit,
 > {
   onDirectorAssertSuccess(
     payload: LifecyclePayload<C8>,
@@ -196,7 +178,7 @@ export interface OnDirectorAssertSuccessHook<
 }
 
 export interface OnDirectorAssertFailHook<
-  C8 extends CoreRedprint = CoreRedprint,
+  C8 extends CoreConduit = CoreConduit,
 > {
   onDirectorAssertFail(
     payload: LifecyclePayload<C8>,

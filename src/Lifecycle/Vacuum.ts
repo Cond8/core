@@ -1,10 +1,10 @@
 // src/Lifecycle/Vacuum.ts
-import { CoreRedprint } from '../CoreDomain/index.ts';
-import { MetaHook } from '../Metadata/hooks.ts';
-import { Recorder } from '../Recorder/create-recorder.ts';
-import { FullLifecycleBlueprint } from './LifecycleEventHooks.ts';
+import { CoreConduit } from '../CoreDomain/index.js';
+import { MetaHook } from '../Metadata/hooks.js';
+import { Recorder } from '../Recorder/create-recorder.js';
+import { FullLifecycleBlueprint } from './LifecycleEventHooks.js';
 
-export interface LifecyclePayload<C8 extends CoreRedprint = CoreRedprint> {
+export interface LifecyclePayload<C8 extends CoreConduit = CoreConduit> {
   event: keyof FullLifecycleBlueprint<C8>;
   isTest?: boolean;
 
@@ -29,7 +29,7 @@ export interface LifecyclePayload<C8 extends CoreRedprint = CoreRedprint> {
   assertFn?: string; // fn.toString()
 }
 
-export class Vacuum<C8 extends CoreRedprint> {
+export class Vacuum<C8 extends CoreConduit> {
   constructor(private _collected: object) {}
 
   get payload(): LifecyclePayload<C8> {

@@ -1,5 +1,5 @@
 // src/CoreInfra/create-actor.ts
-import { CoreRedprint } from '../CoreDomain/index.js';
+import { CoreConduit } from '../CoreDomain/index.js';
 import { LifecyclePayload, Vacuum } from '../Lifecycle/Vacuum.js';
 import { filterMetaHooksActor } from '../Metadata/filter-meta-hooks.js';
 import { Recorder } from '../Recorder/create-recorder.js';
@@ -7,7 +7,7 @@ import { CouldPromise } from '../utils/fn-promise-like.js';
 import { fnStringify } from '../utils/fn-stringify.js';
 import { ActorScript, ActorScriptWithTest } from './create-role.js';
 
-export type StagedActor<C8 extends CoreRedprint> = {
+export type StagedActor<C8 extends CoreConduit> = {
   (
     c8: C8,
     recorder: Recorder | undefined,
@@ -20,13 +20,13 @@ export type StagedActor<C8 extends CoreRedprint> = {
   ) => CouldPromise<C8>;
 };
 
-export type ActorTest<C8 extends CoreRedprint> = (
+export type ActorTest<C8 extends CoreConduit> = (
   recorder: Recorder,
   c8Mock: C8 | undefined,
   directorPayload: LifecyclePayload<C8>,
 ) => CouldPromise<C8>;
 
-export const createActor = <C8 extends CoreRedprint>(
+export const createActor = <C8 extends CoreConduit>(
   actorName: string,
   actorScript: ActorScript<C8> | ActorScriptWithTest<C8>,
   ...metadata: unknown[]

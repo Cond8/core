@@ -3,20 +3,19 @@ import { diff } from 'jest-diff';
 import {
   C8Error,
   CoreBlueprint,
-  CoreRedprint,
-  FullLifecycleBlueprint,
+  CoreConduit,
   LifecycleBlueprint,
   LifecyclePayload,
   RecorderEntry,
 } from '../../index.js';
 
-export type ReadonlyState<C8 extends CoreRedprint> = {
+export type ReadonlyState<C8 extends CoreConduit> = {
   var: VarUtilsType<C8>;
   plain: object;
   [key: string]: unknown;
 };
 
-export type VarUtilsType<C8 extends CoreRedprint> = {
+export type VarUtilsType<C8 extends CoreConduit> = {
   <V>(key: PropertyKey, value?: V): V | C8;
   has: (key: PropertyKey) => boolean;
   string: (key: PropertyKey, value?: string) => string;
@@ -28,7 +27,7 @@ export type VarUtilsType<C8 extends CoreRedprint> = {
   ) => (...args: unknown[]) => unknown;
 };
 
-export class ConduitUtils<C8 extends CoreRedprint> {
+export class ConduitUtils<C8 extends CoreConduit> {
   #closed = false;
   #lastReadonly: Record<string, unknown> = {};
 
@@ -85,7 +84,7 @@ export class ConduitUtils<C8 extends CoreRedprint> {
   }
 
   async handleEvent(
-    event: keyof FullLifecycleBlueprint<C8>,
+    event: keyof LifecycleBlueprint,
     payload: Partial<LifecyclePayload<C8>>,
   ): Promise<void> {
     const recorder = payload.recorder;
@@ -168,11 +167,11 @@ export class ConduitUtils<C8 extends CoreRedprint> {
   }
 
   private *_allLifecycleBlueprintLayers(): Generator<
-    [string, FullLifecycleBlueprint<C8>]
+    [string, LifecycleBlueprint]
   > {
     for (const [key, layer] of this._allBlueprintLayers()) {
       if (layer instanceof LifecycleBlueprint && layer.isActive) {
-        yield [key, layer as unknown as FullLifecycleBlueprint<C8>];
+        yield [key, layer];
       }
     }
   }
