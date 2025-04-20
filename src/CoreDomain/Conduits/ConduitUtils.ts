@@ -4,6 +4,7 @@ import {
   C8Error,
   CoreBlueprint,
   CoreConduit,
+  FullLifecycleBlueprint,
   LifecycleBlueprint,
   LifecyclePayload,
   RecorderEntry,
@@ -84,7 +85,7 @@ export class ConduitUtils<C8 extends CoreConduit> {
   }
 
   async handleEvent(
-    event: keyof LifecycleBlueprint,
+    event: keyof FullLifecycleBlueprint,
     payload: Partial<LifecyclePayload<C8>>,
   ): Promise<void> {
     const recorder = payload.recorder;
