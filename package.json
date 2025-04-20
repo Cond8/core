@@ -11,8 +11,8 @@
     "type": "git",
     "url": "https://github.com/cond8/core.git"
   },
-  "license": "MIT",
-  "author": "",
+  "license": "Apache-2.0",
+  "author": "Vince Liem (https://github.com/veighnsche)",
   "type": "module",
   "exports": {
     ".": {

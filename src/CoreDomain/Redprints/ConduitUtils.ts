@@ -67,6 +67,12 @@ export class ConduitUtils<C8 extends CoreRedprint> {
   close(
     payload: LifecyclePayload<C8>,
     directorPayload: LifecyclePayload<C8>,
+    error: Error,
+    recording?: RecorderEntry[],
+  ): C8Error<C8>;
+  close(
+    payload: LifecyclePayload<C8>,
+    directorPayload: LifecyclePayload<C8>,
     error?: Error,
     recording?: RecorderEntry[],
   ): C8Error<C8> | void {
