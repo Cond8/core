@@ -11,6 +11,10 @@
     "type": "git",
     "url": "https://github.com/cond8/core.git"
   },
+  "bugs": {
+    "url": "https://github.com/cond8/core/issues"
+  },
+  "homepage": "https://github.com/cond8/core#readme",
   "license": "Apache-2.0",
   "author": "Vince Liem (https://github.com/veighnsche)",
   "type": "module",
@@ -27,6 +31,9 @@
     "README.md",
     "LICENSE"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -b -v tsconfig.build.json",
     "check-types": "tsc --noEmit",
@@ -53,6 +60,7 @@
     "eslint-plugin-turbo": "^2.5.0",
     "globals": "^16.0.0",
     "jsonc-eslint-parser": "^2.4.0",
+    "np": "^10.2.0",
     "prettier": "^3.5.3",
     "prettier-plugin-organize-imports": "^4.1.0",
     "prettier-plugin-packagejson": "^2.5.10",
