@@ -196,7 +196,7 @@ We welcome issues, suggestions, and PRs! Please open an issue to discuss your id
 
 ## 📝 License
 
-MIT – © cond8 contributors
+Apache 2.0 – © cond8 contributors
 
 ## Core API
 

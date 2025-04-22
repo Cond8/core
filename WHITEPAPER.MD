@@ -146,4 +146,6 @@ We invite collaborators, sponsors, and contributors to help refine and extend Co
 
 ## License
 
-MIT License – © cond8 contributors
+Apache License
+Version 2.0, January 2004
+http://www.apache.org/licenses/
