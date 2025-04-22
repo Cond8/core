@@ -9,19 +9,21 @@ import { CoreRedprint } from '../Redprints/CoreRedprint.js';
 export const createSupportActors = <C8 extends CoreRedprint>() => {
   const If = (cond: (c8: ReadonlyState) => boolean) => ({
     Then: (...thenActors: StagedActor<C8>[]) => {
-      const ThenActor = createDirector<C8>('Conditional Then')(
-        ...thenActors,
-      ).AsActor;
+      const ThenActor = createDirector<C8>(
+        'Conditional Then',
+        cond.toString(),
+      )(...thenActors).AsActor;
 
       const Then = (
         c8: C8,
         recorder: Recorder | undefined,
         directorPayload: LifecyclePayload<C8>,
-      ) => {
+      ): Promise<C8> => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (cond(c8.utils.readonly)) {
-          return ThenActor(c8, recorder, directorPayload);
+          return ThenActor(c8, recorder, directorPayload) as Promise<C8>;
         }
-        return c8;
+        return new Promise<C8>(resolve => resolve(c8));
       };
 
       const Else =
@@ -30,13 +32,19 @@ export const createSupportActors = <C8 extends CoreRedprint>() => {
           c8: C8,
           recorder: Recorder | undefined,
           directorPayload: LifecyclePayload<C8>,
-        ) => {
+        ): Promise<C8> => {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           if (!cond(c8.utils.readonly)) {
-            return createDirector<C8>('Conditional Else')(
-              ...elseActors,
-            ).AsActor(c8, recorder, directorPayload);
+            return createDirector<C8>(
+              'Conditional Else',
+              cond.toString(),
+            )(...elseActors).AsActor(
+              c8,
+              recorder,
+              directorPayload,
+            ) as Promise<C8>;
           } else {
-            return ThenActor(c8, recorder, directorPayload);
+            return ThenActor(c8, recorder, directorPayload) as Promise<C8>;
           }
         };
       return Object.assign(Then, { Else });
