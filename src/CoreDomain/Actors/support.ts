@@ -1,4 +1,4 @@
-// src/_core/CoreDomain/Actors/support.ts
+// src/CoreDomain/Actors/support.ts
 import { StagedActor } from '../../CoreInfra/create-actor.js';
 import { createDirector } from '../../CoreInfra/create-director.js';
 import { LifecyclePayload } from '../../Lifecycle/Vacuum.js';

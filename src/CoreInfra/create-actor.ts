@@ -1,4 +1,4 @@
-// src/_core/CoreInfra/create-actor.ts
+// src/CoreInfra/create-actor.ts
 import { CoreRedprint } from '../CoreDomain/index.js';
 import { LifecyclePayload, Vacuum } from '../Lifecycle/Vacuum.js';
 import { filterMetaHooksActor } from '../Metadata/filter-meta-hooks.js';

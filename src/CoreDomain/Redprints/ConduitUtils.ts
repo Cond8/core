@@ -1,4 +1,4 @@
-// src/_core/CoreDomain/Redprints/ConduitUtils.ts
+// src/CoreDomain/Redprints/ConduitUtils.ts
 import { diff } from 'jest-diff';
 import { FullLifecycleBlueprint } from '../../Lifecycle/LifecycleEventHooks.js';
 import { LifecyclePayload } from '../../Lifecycle/Vacuum.js';

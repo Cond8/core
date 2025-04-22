@@ -1,4 +1,4 @@
-// index.ts
+// src/index.ts
 export * from './CoreDomain/index.js';
 export * from './CoreInfra/create-actor.js';
 export * from './CoreInfra/create-director.js';
