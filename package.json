@@ -1,6 +1,6 @@
 {
   "name": "@cond8-ai/core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Core utilities and functions for the cond8 ecosystem.",
   "keywords": [
     "cond8",
