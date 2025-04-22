@@ -17,6 +17,7 @@
 - **Test-first**: Easily inject mocks and assertions for both unit and integration testing.
 
 It's ideal for:
+
 - Data processing pipelines
 - Business logic engines
 - Testable state machines
@@ -27,29 +28,24 @@ It's ideal for:
 ## 🚀 Quickstart
 
 ```ts
-import {
-  createRole,
-  createDirector,
-  CoreMetaHooks,
-} from '@cond8/core';
+import { createRole, createDirector, CoreMetaHooks } from '@cond8/core';
 
 // Actor: increments a counter in the conduit
-const increment = createRole((c8) => c8.var('count', (c8.var('count', 0) ?? 0) + 1));
+const increment = createRole(c8 =>
+  c8.var('count', (c8.var('count', 0) ?? 0) + 1),
+);
 
 // Director: chains two increments
-const pipeline = createDirector('counterDemo')(
-  increment,
-  increment
-)
-  .init((input) => ({ conduit: input, recorder: undefined }))
-  .fin((readonly) => readonly.var('count'));
+const pipeline = createDirector('counterDemo')(increment, increment)
+  .init(input => ({ conduit: input, recorder: undefined }))
+  .fin(readonly => readonly.var('count'));
 
 // Run with test metadata
 const result = await pipeline.test(
   CoreMetaHooks.Director.TestInput({}),
-  CoreMetaHooks.Director.TestOutput((val) => {
+  CoreMetaHooks.Director.TestOutput(val => {
     if (val !== 2) throw new Error('Expected 2!');
-  })
+  }),
 );
 console.log(result); // 2
 ```
@@ -73,6 +69,7 @@ console.log(result); // 2
                            |  Recorder/Log    |
                            +------------------+
 ```
+
 - **Actors**: Stateless/pure or stateful functions, can be tested in isolation.
 - **Director**: Orchestrates actors, manages lifecycle, and exposes `.test()`.
 - **Recorder**: Captures every event, state diff, and error for inspection.
@@ -106,7 +103,7 @@ yarn add @cond8/core
 Actors are functions that operate on a conduit (your state object). Use `createRole` to wrap them for metadata and testing:
 
 ```ts
-const double = createRole((c8) => c8.var('count', (c8.var('count', 0) ?? 0) * 2));
+const double = createRole(c8 => c8.var('count', (c8.var('count', 0) ?? 0) * 2));
 ```
 
 ### Directors
@@ -114,12 +111,9 @@ const double = createRole((c8) => c8.var('count', (c8.var('count', 0) ?? 0) * 2)
 Directors chain actors, manage lifecycle, and expose a callable API:
 
 ```ts
-const director = createDirector('mathFlow')(
-  increment,
-  double,
-)
-  .init((input) => ({ conduit: input, recorder: undefined }))
-  .fin((readonly) => readonly.var('count'));
+const director = createDirector('mathFlow')(increment, double)
+  .init(input => ({ conduit: input, recorder: undefined }))
+  .fin(readonly => readonly.var('count'));
 
 const result = await director({ count: 1 }); // 4
 ```
@@ -131,9 +125,9 @@ Inject test data and assertions using `CoreMetaHooks`:
 ```ts
 await director.test(
   CoreMetaHooks.Director.TestInput({ count: 2 }),
-  CoreMetaHooks.Director.TestOutput((val) => {
+  CoreMetaHooks.Director.TestOutput(val => {
     if (val !== 6) throw new Error('Expected 6!');
-  })
+  }),
 );
 ```
 
@@ -207,9 +201,11 @@ MIT – © cond8 contributors
 ## Core API
 
 - **createRole**<T extends CoreRedprint>(actorScript: (c8: T) => Promise<T> | T)
+
   - Returns a factory for `StagedActor` with built-in metadata injection and `.test()`.
 
 - **createDirector**<C8 extends CoreRedprint>(name: string)
+
   - Builds a `Director` to chain actors:
     1. supply actors via `(...)` or `.appendActors`/`.prependActors`
     2. define an input mapper (`.init`)
@@ -229,8 +225,9 @@ MIT – © cond8 contributors
 
 ## Testing Helpers
 
-Inject test metadata via `CoreMetaHooks`:  
-- `Actor.TestInput(mockC8)` / `Actor.TestOutput(assertFn)`  
+Inject test metadata via `CoreMetaHooks`:
+
+- `Actor.TestInput(mockC8)` / `Actor.TestOutput(assertFn)`
 - `Director.TestInput(input)` / `Director.TestOutput(assertFn)`
 
 Use these in `.test()` runs to mock inputs or assert outputs without external test runners.
@@ -269,4 +266,6 @@ Contributions welcome! Please open issues or PRs.
 
 ## License
 
-MIT
+Apache License
+Version 2.0, January 2004
+http://www.apache.org/licenses/
