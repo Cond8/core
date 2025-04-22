@@ -1,5 +1,4 @@
 {
-  "$path": "package.json",
   "name": "@cond8-ai/core",
   "version": "0.0.1",
   "description": "Core utilities and functions for the cond8 ecosystem.",
@@ -8,7 +7,7 @@
     "core",
     "library"
   ],
-  "homepage": "https://github.com/cond8/core#readme",
+  "homepage": "https://cond8.dev",
   "bugs": {
     "url": "https://github.com/cond8/core/issues"
   },

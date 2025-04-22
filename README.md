@@ -1,4 +1,4 @@
-# @cond8/core
+# @cond8-ai/core
 
 > **Composable, testable, and observable pipelines for TypeScript.**
 >
@@ -6,9 +6,9 @@
 
 ---
 
-## ✨ What is @cond8/core?
+## ✨ What is @cond8-ai/core?
 
-`@cond8/core` is a TypeScript framework for building and testing complex, stateful workflows:
+`@cond8-ai/core` is a TypeScript framework for building and testing complex, stateful workflows:
 
 - **Actors**: Pure functions that mutate or observe state.
 - **Directors**: Compose actors into pipelines, manage lifecycle, and orchestrate data flow.
@@ -28,7 +28,7 @@ It's ideal for:
 ## 🚀 Quickstart
 
 ```ts
-import { createRole, createDirector, CoreMetaHooks } from '@cond8/core';
+import { createRole, createDirector, CoreMetaHooks } from '@cond8-ai/core';
 
 // Actor: increments a counter in the conduit
 const increment = createRole(c8 =>
@@ -88,10 +88,10 @@ console.log(result); // 2
 ## 📦 Installation
 
 ```bash
-npm install @cond8/core
+npm install @cond8-ai/core
 # or
-pnpm add @cond8/core
-yarn add @cond8/core
+pnpm add @cond8-ai/core
+yarn add @cond8-ai/core
 ```
 
 ---
@@ -140,7 +140,7 @@ Observe or extend every step by implementing `LifecycleBlueprint` or using the b
 ## 🔍 Example: Custom Lifecycle Hook
 
 ```ts
-import { FullLifecycleBlueprint } from '@cond8/core';
+import { FullLifecycleBlueprint } from '@cond8-ai/core';
 
 class LoggingHook extends FullLifecycleBlueprint {
   onEnter(payload) {
