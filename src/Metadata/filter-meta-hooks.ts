@@ -1,5 +1,5 @@
 // src/Metadata/filter-meta-hooks.ts
-import { CoreConduit } from '../CoreDomain/index.js';
+import { CoreRedprint } from '../CoreDomain/index.js';
 import {
   ActorTestInput,
   ActorTestOutput,
@@ -8,7 +8,7 @@ import {
   MetaHook,
 } from './hooks.js';
 
-export const filterMetaHooksActor = <C8 extends CoreConduit>(
+export const filterMetaHooksActor = <C8 extends CoreRedprint>(
   ...metadataRest: unknown[]
 ): {
   hooks: MetaHook[];

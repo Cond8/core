@@ -1,5 +1,5 @@
 // src/CoreInfra/create-director.ts
-import { CoreBlueprint, CoreConduit } from '../CoreDomain/index.js';
+import { CoreBlueprint, CoreRedprint } from '../CoreDomain/index.js';
 import { LifecyclePayload, Vacuum } from '../Lifecycle/Vacuum.js';
 import { filterMetaHooksDirector } from '../Metadata/filter-meta-hooks.js';
 import { MetaHook } from '../Metadata/hooks.js';
@@ -9,25 +9,25 @@ import { fnStringify } from '../utils/fn-stringify.js';
 import { createActor, StagedActor } from './create-actor.js';
 import { ActorScript, ActorScriptWithTest } from './create-role.js';
 
-export type C8RO<C8 extends CoreConduit> = C8['utils']['readonly'];
-export type C8ROPlain<C8 extends CoreConduit> =
+export type C8RO<C8 extends CoreRedprint> = C8['utils']['readonly'];
+export type C8ROPlain<C8 extends CoreRedprint> =
   C8['utils']['readonly']['plain'];
 
-export interface Input<C8 extends CoreConduit> {
+export interface Input<C8 extends CoreRedprint> {
   conduit: C8;
   recorder?: Recorder;
 }
 
-export type OutputMapper<C8 extends CoreConduit, Out = unknown> = (
+export type OutputMapper<C8 extends CoreRedprint, Out = unknown> = (
   readonlyConduit: C8RO<C8>,
   recording?: RecorderEntry[],
 ) => CouldPromise<Out>;
 
-export type InputMapper<NewIn extends object, C8 extends CoreConduit> = (
+export type InputMapper<NewIn extends object, C8 extends CoreRedprint> = (
   input: NewIn,
 ) => CouldPromise<Input<C8>>;
 
-export interface BaseDirector<C8 extends CoreConduit> {
+export interface BaseDirector<C8 extends CoreRedprint> {
   directorName: string;
   readonly metadata: Readonly<unknown[]>;
   readonly metaHooks: Readonly<MetaHook[]>;
@@ -37,7 +37,7 @@ export interface BaseDirector<C8 extends CoreConduit> {
 }
 
 export interface Director<
-  C8 extends CoreConduit,
+  C8 extends CoreRedprint,
   In extends object = object,
   Out = unknown,
 > extends BaseDirector<C8> {
@@ -52,7 +52,7 @@ export interface Director<
 }
 
 export interface InitializedDirector<
-  C8 extends CoreConduit,
+  C8 extends CoreRedprint,
   In extends object = object,
   Out = unknown,
 > extends BaseDirector<C8> {
@@ -68,7 +68,7 @@ export interface InitializedDirector<
 export interface Executable<
   In extends object,
   Out,
-  C8 extends CoreConduit = CoreConduit,
+  C8 extends CoreRedprint = CoreRedprint,
 > extends BaseDirector<C8> {
   isFinalized: true;
   (input?: In): Promise<Out>;
@@ -77,7 +77,7 @@ export interface Executable<
   prependActors(...actors: StagedActor<C8>[]): Executable<In, Out, C8>;
 }
 
-export function createDirector<C8 extends CoreConduit>(
+export function createDirector<C8 extends CoreRedprint>(
   directorName: string,
   ...metadata: unknown[]
 ): Director<C8> {

@@ -1,23 +1,21 @@
-// src/CoreDomain/Redprints/ConduitUtils.ts
+// src/_core/CoreDomain/Redprints/ConduitUtils.ts
 import { diff } from 'jest-diff';
-import {
-  C8Error,
-  CoreBlueprint,
-  CoreConduit,
-  FullLifecycleBlueprint,
-  LifecycleBlueprint,
-  LifecyclePayload,
-  RecorderEntry,
-} from '../../index.js';
+import { FullLifecycleBlueprint } from '../../Lifecycle/LifecycleEventHooks.js';
+import { LifecyclePayload } from '../../Lifecycle/Vacuum.js';
+import { C8Error } from '../../Recorder/C8Error.js';
+import { RecorderEntry } from '../../Recorder/create-recorder.js';
+import { CoreBlueprint } from '../Blueprints/CoreBlueprint.js';
+import { LifecycleBlueprint } from '../Blueprints/LifecycleBlueprint.js';
+import { CoreRedprint } from './CoreRedprint.js';
 
-export type ReadonlyState<C8 extends CoreConduit> = {
-  var: VarUtilsType<C8>;
+export type ReadonlyState = {
+  var: VarUtilsType;
   plain: object;
   [key: string]: unknown;
 };
 
-export type VarUtilsType<C8 extends CoreConduit> = {
-  <V>(key: PropertyKey, value?: V): V | C8;
+export type VarUtilsType = {
+  <V>(key: PropertyKey, value?: V): V;
   has: (key: PropertyKey) => boolean;
   string: (key: PropertyKey, value?: string) => string;
   number: (key: PropertyKey, value?: number) => number;
@@ -28,7 +26,7 @@ export type VarUtilsType<C8 extends CoreConduit> = {
   ) => (...args: unknown[]) => unknown;
 };
 
-export class ConduitUtils<C8 extends CoreConduit> {
+export class ConduitUtils<C8 extends CoreRedprint> {
   #closed = false;
   #lastReadonly: Record<string, unknown> = {};
 
@@ -38,7 +36,7 @@ export class ConduitUtils<C8 extends CoreConduit> {
     return this.#closed;
   }
 
-  get readonly(): ReadonlyState<C8> {
+  get readonly(): ReadonlyState & Record<string, object> {
     const readonly: Record<string, unknown> = {};
     for (const [key, layer] of this._allBlueprintLayers()) {
       readonly[key] = layer.readonly;
@@ -85,7 +83,7 @@ export class ConduitUtils<C8 extends CoreConduit> {
   }
 
   async handleEvent(
-    event: keyof FullLifecycleBlueprint,
+    event: keyof FullLifecycleBlueprint<C8>,
     payload: Partial<LifecyclePayload<C8>>,
   ): Promise<void> {
     const recorder = payload.recorder;
@@ -168,22 +166,22 @@ export class ConduitUtils<C8 extends CoreConduit> {
   }
 
   private *_allLifecycleBlueprintLayers(): Generator<
-    [string, LifecycleBlueprint]
+    [string, FullLifecycleBlueprint<C8>]
   > {
     for (const [key, layer] of this._allBlueprintLayers()) {
       if (layer instanceof LifecycleBlueprint && layer.isActive) {
-        yield [key, layer];
+        yield [key, layer as unknown as FullLifecycleBlueprint<C8>];
       }
     }
   }
 
-  get var(): VarUtilsType<C8> {
-    const defaultVar = <V>(key: PropertyKey, value?: V): V | C8 => {
+  get var(): VarUtilsType {
+    const defaultVar = <V>(key: PropertyKey, value?: V): V => {
       if (value === undefined) {
         return this.c8.locals.get(key) as V;
       }
       this.c8.locals.set(key, value);
-      return this.c8;
+      return value;
     };
 
     const checkedVar =

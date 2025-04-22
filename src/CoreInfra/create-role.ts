@@ -1,17 +1,17 @@
 // src/CoreInfra/create-role.ts
-import { CoreConduit } from '../CoreDomain/Conduits/CoreConduit.js';
+import { CoreRedprint } from '../CoreDomain/Redprints/CoreRedprint.js';
 import { LifecyclePayload } from '../Lifecycle/Vacuum.js';
 import { MetaHook } from '../Metadata/hooks.js';
 import { Recorder } from '../Recorder/create-recorder.js';
 import { CouldPromise } from '../utils/fn-promise-like.js';
 import { createActor, StagedActor } from './create-actor.js';
 
-export type ActorScript<C8 extends CoreConduit> = (
+export type ActorScript<C8 extends CoreRedprint> = (
   c8: C8,
   recorder?: Recorder,
 ) => CouldPromise<C8>;
 
-export interface ActorScriptWithTest<C8 extends CoreConduit>
+export interface ActorScriptWithTest<C8 extends CoreRedprint>
   extends ActorScript<C8> {
   test(
     recorder: Recorder,
@@ -20,34 +20,34 @@ export interface ActorScriptWithTest<C8 extends CoreConduit>
   ): CouldPromise<C8>;
 }
 
-export type NeedsMetadata<T extends CoreConduit> = (
+export type NeedsMetadata<T extends CoreRedprint> = (
   actorName: string,
   ...metadataRest: unknown[]
 ) => StagedActor<T>;
 
-export type NeedsActorsScript<T extends CoreConduit> = (
+export type NeedsActorsScript<T extends CoreRedprint> = (
   actorScript: ActorScript<T>,
 ) => StagedActor<T>;
 
-export type NeedsActorsScriptAndMetadata<T extends CoreConduit> = (
+export type NeedsActorsScriptAndMetadata<T extends CoreRedprint> = (
   actorScript: ActorScript<T>,
 ) => NeedsMetadata<T>;
 
-export function createRole<T extends CoreConduit>(
+export function createRole<T extends CoreRedprint>(
   actorScript: ActorScript<T>,
 ): NeedsMetadata<T>;
 
-export function createRole<T extends CoreConduit>(
+export function createRole<T extends CoreRedprint>(
   actorName: string,
   ...metadata: unknown[]
 ): NeedsActorsScript<T>;
 
-export function createRole<T extends CoreConduit>(
+export function createRole<T extends CoreRedprint>(
   metaHook: MetaHook,
   ...metadata: unknown[]
 ): NeedsActorsScriptAndMetadata<T>;
 
-export function createRole<T extends CoreConduit>(
+export function createRole<T extends CoreRedprint>(
   firstArg: string | MetaHook | ActorScript<T>,
   ...restArgs: unknown[]
 ) {
