@@ -17,6 +17,7 @@ export type ReadonlyState = {
 export type VarUtilsType = {
   <V>(key: PropertyKey, value?: V): V;
   has: (key: PropertyKey) => boolean;
+  set: (key: PropertyKey, value: unknown) => void;
   string: (key: PropertyKey, value?: string) => string;
   number: (key: PropertyKey, value?: number) => number;
   boolean: (key: PropertyKey, value?: boolean) => boolean;
@@ -209,6 +210,9 @@ export class ConduitUtils<C8 extends CoreRedprint> {
 
     return Object.assign(defaultVar, {
       has: (key: PropertyKey) => this.c8.locals.has(key),
+      set: (key: PropertyKey, value: unknown) => {
+        this.c8.locals.set(key, value);
+      },
       string: checkedVar<string>(
         (x): x is string => typeof x === 'string',
         'string',
