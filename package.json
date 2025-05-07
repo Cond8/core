@@ -1,5 +1,5 @@
 {
-  "name": "@cond8/core",
+  "name": "@cond8-ai/core",
   "version": "0.0.0",
   "description": "Core utilities and functions for the cond8 ecosystem.",
   "keywords": [
@@ -41,7 +41,8 @@
     "format": "prettier --write .",
     "lint": "eslint . --fix",
     "test": "vitest",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "publish": "pnpm run build && npx np"
   },
   "dependencies": {
     "dedent": "^1.5.3",
