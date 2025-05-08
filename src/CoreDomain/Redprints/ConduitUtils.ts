@@ -25,6 +25,7 @@ export type VarUtilsType = {
     key: PropertyKey,
     value?: (...args: unknown[]) => unknown,
   ) => (...args: unknown[]) => unknown;
+  optional: <V>(key: PropertyKey) => V | undefined;
 };
 
 export class ConduitUtils<C8 extends CoreRedprint> {
@@ -229,6 +230,9 @@ export class ConduitUtils<C8 extends CoreRedprint> {
         (x): x is (...args: unknown[]) => unknown => typeof x === 'function',
         'function',
       ),
+      optional: <V>(key: PropertyKey): V | undefined => {
+        return this.c8.locals.optional(key) as V;
+      },
     });
   }
 }
